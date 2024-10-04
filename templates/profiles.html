@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Все пользователи</h2>
+<div class="dream-list">
+    {% for user in users %}
+        {% for dream in user.dreams %}
+        <div class="dream-bubble">
+            <div class="dream-author">{{ user.username }}</div>
+            <div class="dream-timestamp">{{ dream.timestamp.strftime('%Y-%m-%d %H:%M') }}</div>
+            <div class="dream-content">{{ dream.content }}</div>
+        </div>
+        {% endfor %}
+    {% endfor %}
+</div>
+{% endblock %}

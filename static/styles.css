@@ -1,0 +1,309 @@
+/* Общие стили */
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f0f2f5;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+}
+
+.wrapper {
+    display: flex;
+    width: 100%;
+    max-width: 1200px;
+    min-height: 100vh;
+    justify-content: center;
+}
+
+/* Сайдбар */
+.sidebar {
+    width: 250px;
+    background-color: #ffffff;
+    padding: 20px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    position: fixed;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+}
+
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar ul li {
+    margin-bottom: 15px;
+}
+
+.sidebar ul li a {
+    color: #333;
+    text-decoration: none;
+    font-weight: bold;
+    display: block;
+    padding: 10px;
+    border-radius: 10px;
+    transition: background-color 0.3s, transform 0.1s ease-in-out;
+}
+
+.sidebar ul li a:hover {
+    background-color: #e0e0e0;
+    transform: scale(1.05);
+}
+
+/* Основная область контента */
+.content-area {
+    margin-left: 270px;
+    padding: 20px;
+    width: calc(100% - 270px);
+    max-width: 800px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.content-area h2 {
+    text-align: center;
+    color: #333;
+    font-size: 24px;
+    margin-bottom: 30px;
+}
+
+/* Оформление снов пользователей */
+.dream-bubble {
+    background-color: #ffffff;
+    border: 2px solid #e0e0e0;
+    border-radius: 20px;
+    padding: 15px 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+    transition: box-shadow 0.3s;
+}
+
+.dream-bubble:hover {
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+}
+
+.dream-author {
+    font-weight: bold;
+    color: #0077ff;
+    margin-bottom: 10px;
+}
+
+.dream-timestamp {
+    font-size: 12px;
+    color: #999;
+    margin-bottom: 10px;
+}
+
+.dream-content {
+    font-size: 16px;
+    line-height: 1.5;
+    color: #333;
+    padding-left: 10px;
+    border-left: 4px solid #0077ff;
+}
+
+/* Добавление плавности и современности */
+a {
+    transition: color 0.3s, transform 0.2s;
+}
+
+a:hover {
+    color: #005bb5;
+    transform: scale(1.05);
+}
+
+/* Стиль формы для добавления сна */
+#dream-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+}
+
+textarea {
+    width: 100%;
+    max-width: 600px;
+    padding: 15px;
+    font-size: 16px;
+    border: 2px solid #e0e0e0;
+    border-radius: 12px;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    outline: none;
+    resize: vertical;
+    min-height: 150px;
+    font-family: 'Courier New', monospace; /* Имитация печатной машинки */
+}
+
+/* Анимация при фокусе на инпуте */
+textarea:focus {
+    border-color: #0077ff;
+    box-shadow: 0 4px 8px rgba(0, 119, 255, 0.2);
+}
+
+.error-message {
+    color: #ff4d4d;
+    font-size: 14px;
+    text-align: center;
+}
+
+/* Стиль кнопки отправки */
+input[type="submit"] {
+    padding: 10px 20px;
+    background-color: #0077ff;
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+input[type="submit"]:hover {
+    background-color: #005bb5;
+    transform: scale(1.05);
+}
+
+input[type="submit"]:active {
+    transform: scale(0.95);
+}
+
+/* Список снов */
+.dream-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Пузырек для каждого сна */
+.dream-bubble {
+    background-color: #ffffff;
+    border: 2px solid #e0e0e0;
+    border-radius: 20px;
+    padding: 15px 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+    transition: box-shadow 0.3s;
+}
+
+.dream-bubble:hover {
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+}
+
+.dream-timestamp {
+    font-size: 12px;
+    color: #999;
+    margin-bottom: 10px;
+}
+
+.dream-content {
+    font-size: 16px;
+    line-height: 1.5;
+    color: #333;
+    padding-left: 10px;
+    border-left: 4px solid #0077ff;
+}
+
+/* Кнопки для действий с сном */
+.dream-actions {
+    margin-top: 10px;
+    display: flex;
+    gap: 10px;
+}
+
+.edit-btn, .delete-btn {
+    padding: 5px 10px;
+    background-color: #0077ff;
+    color: #ffffff;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 14px;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.edit-btn:hover, .delete-btn:hover {
+    background-color: #005bb5;
+    transform: scale(1.05);
+}
+
+.delete-btn {
+    background-color: #ff4d4d;
+}
+
+.delete-btn:hover {
+    background-color: #ff2d2d;
+}
+
+/* Центрирование окна входа */
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Центрирование по вертикали */
+}
+
+.login-box {
+    background-color: #ffffff;
+    border-radius: 12px;
+    padding: 40px; /* Увеличен padding для более просторного дизайна */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+}
+
+.login-box h2 {
+    margin-bottom: 30px; /* Увеличен отступ */
+    color: #333;
+}
+
+/* Стиль полей ввода */
+#login-form input[type="text"], #login-form input[type="password"] {
+    width: 100%;
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px; /* Закругленные углы */
+    font-size: 16px;
+    transition: border-color 0.3s;
+    box-sizing: border-box; /* Важно для правильной обработки отступов */
+}
+
+/* Анимация и фокус для полей ввода */
+#login-form input[type="text"]:focus, #login-form input[type="password"]:focus {
+    border-color: #0077ff; /* Цвет при фокусе */
+    outline: none;
+    box-shadow: 0 4px 8px rgba(0, 119, 255, 0.1);
+}
+
+/* Стиль кнопки */
+#login-form input[type="submit"] {
+    padding: 12px 20px;
+    background-color: #0077ff;
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+#login-form input[type="submit"]:hover {
+    background-color: #005bb5;
+    transform: scale(1.05);
+}
+
+#login-form input[type="submit"]:active {
+    transform: scale(0.95);
+}
+
+/* Сообщение об ошибке */
+.error-message {
+    color: #ff4d4d;
+    font-size: 14px;
+}

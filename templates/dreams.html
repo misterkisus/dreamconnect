@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Схожие сны</h2>
+<ul>
+    {% for dream, similarity in dreams %}
+        <li>
+            <strong>{{ dream.author.username }}</strong> (Схожесть: {{ similarity|round(2) }})<br>
+            {{ dream.content }}
+        </li>
+    {% endfor %}
+</ul>
+{% endblock %}

@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Добавить новый сон</h2>
+
+<form method="post" id="dream-form" onsubmit="return validateDream()">
+    <textarea id="dream-content" name="content" rows="5" placeholder="Опишите свой сон..."></textarea>
+    <p class="error-message" id="error-message"></p>
+    <input type="submit" value="Добавить">
+</form>
+
+<script>
+function validateDream() {
+    const content = document.getElementById('dream-content').value;
+    const errorMessage = document.getElementById('error-message');
+    
+    if (content.length < 10) {
+        errorMessage.textContent = "Сон должен содержать не менее 10 символов.";
+        return false;
+    }
+    
+    if (content.toLowerCase().includes("пидор")) {
+        errorMessage.textContent = "Содержимое не должно включать оскорбительные слова.";
+        return false;
+    }
+    
+    errorMessage.textContent = "";
+    return true;
+}
+
+// Анимация печатной машинки
+const textarea = document.getElementById('dream-content');
+textarea.addEventListener('input', function(e) {
+    const text = textarea.value;
+    const lastChar = text.charAt(text.length - 1);
+    textarea.value = text.slice(0, -1);  // Удаляем последний символ
+    setTimeout(() => {
+        textarea.value += lastChar;  // Добавляем его обратно с задержкой
+    }, 50);  // Задержка между символами 50 мс
+});
+</script>
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Мои сны</h2>
+
+<div class="dream-list">
+    {% for dream in dreams %}
+    <div class="dream-bubble">
+        <div class="dream-timestamp">{{ dream.timestamp.strftime('%Y-%m-%d %H:%M') }}</div>
+        <div class="dream-content">{{ dream.content }}</div>
+        
+        <!-- Кнопки для редактирования и удаления -->
+        <div class="dream-actions">
+            <a href="{{ url_for('edit_dream', dream_id=dream.id) }}" class="edit-btn">Редактировать</a>
+
+
+            <form method="post" action="{{ url_for('delete_dream', dream_id=dream.id) }}" style="display:inline;">
+                <input type="submit" value="Удалить" class="delete-btn">
+            </form>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+{% endblock %}

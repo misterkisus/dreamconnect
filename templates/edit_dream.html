@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Редактировать сон</h2>
+
+<form method="post">
+    <textarea id="dream-content" name="content" rows="5">{{ dream.content }}</textarea>
+    <input type="submit" value="Сохранить">
+</form>
+
+{% endblock %}

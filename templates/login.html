@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Вход или Регистрация | DreamConnect</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-box">
+            <h2>Вход или Регистрация</h2>
+
+            <form method="post" id="login-form">
+                <!-- Поле для логина (не сбрасывается при ошибке или запросе пароля) -->
+                <input type="text" id="username" name="username" placeholder="Логин или почта" value="{{ username }}" required>
+                <p class="error-message" id="login-error">{{ error }}</p>
+
+                <!-- Поле для пароля появляется после проверки логина -->
+                {% if show_password %}
+                    <input type="password" id="password" name="password" placeholder="Введите пароль" required>
+                {% endif %}
+                <input type="submit" value="Продолжить">
+            </form>
+        </div>
+    </div>
+</body>
+</html>
