@@ -143,7 +143,9 @@ def cosine_similarity(vec1, vec2):
 @login_required
 def edit_dream(dream_id):
     dream = Dream.query.get_or_404(dream_id)
-    if dream.user != current_user:
+    
+    # Проверяем, что сон принадлежит либо текущему пользователю, либо текущий пользователь администратор
+    if dream.user != current_user and not current_user.is_admin:
         return redirect(url_for('dashboard'))
 
     if request.method == 'POST':
@@ -158,13 +160,14 @@ def edit_dream(dream_id):
 def delete_dream(dream_id):
     dream = Dream.query.get_or_404(dream_id)
     
-    # Проверяем, что сон принадлежит текущему пользователю
-    if dream.user != current_user:
+    # Проверяем, что сон принадлежит либо текущему пользователю, либо текущий пользователь администратор
+    if dream.user != current_user and not current_user.is_admin:
         return redirect(url_for('dashboard'))
 
     db.session.delete(dream)
     db.session.commit()
     return redirect(url_for('dashboard'))
+
 
 if __name__ == '__main__':
     with app.app_context():

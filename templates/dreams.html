@@ -6,6 +6,17 @@
         <li>
             <strong>{{ dream.author.username }}</strong> (Схожесть: {{ similarity|round(2) }})<br>
             {{ dream.content }}
+
+            <!-- Кнопки для редактирования и удаления доступны владельцу сна или администратору -->
+            <div class="dream-actions">
+                {% if dream.user == current_user or current_user.is_admin %}
+                    <a href="{{ url_for('edit_dream', dream_id=dream.id) }}" class="edit-btn">Редактировать</a>
+
+                    <form method="post" action="{{ url_for('delete_dream', dream_id=dream.id) }}" style="display:inline;">
+                        <input type="submit" value="Удалить" class="delete-btn">
+                    </form>
+                {% endif %}
+            </div>
         </li>
     {% endfor %}
 </ul>
