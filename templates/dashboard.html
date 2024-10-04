@@ -8,7 +8,7 @@
     <div class="dream-bubble">
         <div class="dream-timestamp">{{ dream.timestamp.strftime('%Y-%m-%d %H:%M') }}</div>
         <div class="dream-content">{{ dream.content }}</div>
-        
+
         <!-- Кнопки для редактирования и удаления доступны владельцу сна или администратору -->
         <div class="dream-actions">
             {% if dream.user == current_user or current_user.is_admin %}
@@ -18,9 +18,48 @@
                     <input type="submit" value="Удалить" class="delete-btn">
                 </form>
             {% endif %}
+            
+            <!-- Кнопка комментариев с количеством -->
+            <button class="comments-btn" onclick="toggleComments('{{ dream.id }}')">
+                Комментарии <span class="comments-count" style="background-color: blue; color: white; border-radius: 50%; padding: 2px 8px;">{{ dream.comments|length }}</span>
+            </button>
+        </div>
+
+        <!-- Блок комментариев -->
+        <div class="comments-section" id="comments-{{ dream.id }}" style="display: none;">
+            <ul>
+                {% for comment in dream.comments %}
+                    <li>
+                        <strong>{{ comment.user.username }}</strong> {{ comment.timestamp.strftime('%Y-%m-%d %H:%M') }}<br>
+                        {{ comment.content }}
+                        {% if comment.user == current_user or current_user.is_admin %}
+                            <form method="post" action="{{ url_for('delete_comment', comment_id=comment.id) }}" style="display:inline;">
+                                <input type="submit" value="Удалить" class="delete-btn">
+                            </form>
+                        {% endif %}
+                    </li>
+                {% endfor %}
+            </ul>
+
+            <!-- Форма добавления комментария -->
+            <form method="post" action="{{ url_for('add_comment', dream_id=dream.id) }}">
+                <textarea name="content" rows="2" placeholder="Оставьте комментарий"></textarea>
+                <input type="submit" value="Отправить">
+            </form>
         </div>
     </div>
     {% endfor %}
 </div>
+
+<script>
+function toggleComments(dreamId) {
+    const commentsSection = document.getElementById('comments-' + dreamId);
+    if (commentsSection.style.display === 'none' || commentsSection.style.display === '') {
+        commentsSection.style.display = 'block';
+    } else {
+        commentsSection.style.display = 'none';
+    }
+}
+</script>
 
 {% endblock %}

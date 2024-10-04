@@ -22,3 +22,13 @@ class User(UserMixin, db.Model):
     username = db.Column(db.String(150), nullable=False, unique=True)
     password = db.Column(db.String(150), nullable=False)
     is_admin = db.Column(db.Boolean, default=False)
+
+class Comment(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    content = db.Column(db.Text, nullable=False)
+    timestamp = db.Column(db.DateTime, default=datetime.utcnow)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    dream_id = db.Column(db.Integer, db.ForeignKey('dream.id'), nullable=False)
+
+    user = db.relationship('User', backref='comments')
+    dream = db.relationship('Dream', backref='comments')

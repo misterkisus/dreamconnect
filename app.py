@@ -5,7 +5,7 @@ from flask_bcrypt import Bcrypt
 from datetime import datetime
 import spacy
 import numpy as np
-from models import db, User, Dream
+from models import db, User, Dream, Comment
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'your_secret_key'
@@ -87,6 +87,7 @@ def dashboard():
     dreams = Dream.query.filter_by(user_id=current_user.id).all()
     return render_template('dashboard.html', dreams=dreams)
 
+
 @app.route('/add_dream', methods=['GET', 'POST'])
 @login_required
 def add_dream():
@@ -143,8 +144,6 @@ def cosine_similarity(vec1, vec2):
 @login_required
 def edit_dream(dream_id):
     dream = Dream.query.get_or_404(dream_id)
-    
-    # Проверяем, что сон принадлежит либо текущему пользователю, либо текущий пользователь администратор
     if dream.user != current_user and not current_user.is_admin:
         return redirect(url_for('dashboard'))
 
@@ -160,7 +159,7 @@ def edit_dream(dream_id):
 def delete_dream(dream_id):
     dream = Dream.query.get_or_404(dream_id)
     
-    # Проверяем, что сон принадлежит либо текущему пользователю, либо текущий пользователь администратор
+    # Проверяем, что сон принадлежит текущему пользователю или что пользователь — администратор
     if dream.user != current_user and not current_user.is_admin:
         return redirect(url_for('dashboard'))
 
@@ -168,6 +167,35 @@ def delete_dream(dream_id):
     db.session.commit()
     return redirect(url_for('dashboard'))
 
+# Добавление комментариев
+@app.route('/add_comment/<int:dream_id>', methods=['POST'])
+@login_required
+def add_comment(dream_id):
+    dream = Dream.query.get_or_404(dream_id)
+    content = request.form['content']
+
+    if len(content) < 1:
+        return redirect(url_for('dashboard'))  # Добавить обработку ошибок по вкусу
+
+    new_comment = Comment(content=content, user_id=current_user.id, dream_id=dream_id)
+    db.session.add(new_comment)
+    db.session.commit()
+
+    return redirect(url_for('dashboard'))
+
+# Удаление комментариев
+@app.route('/delete_comment/<int:comment_id>', methods=['POST'])
+@login_required
+def delete_comment(comment_id):
+    comment = Comment.query.get_or_404(comment_id)
+
+    # Только администратор или автор комментария может удалить его
+    if comment.user != current_user and not current_user.is_admin:
+        return redirect(url_for('dashboard'))
+
+    db.session.delete(comment)
+    db.session.commit()
+    return redirect(url_for('dashboard'))
 
 if __name__ == '__main__':
     with app.app_context():
